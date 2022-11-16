@@ -2,20 +2,10 @@ import './App.scss';
 import {useState, useEffect} from 'react';
 import Nav from './Components/Nav/Nav';
 import WeatherInfo from './Components/WeatherInfo/WeatherInfo';
-
 function App() {
-   const [weather, setWeather] = useState([]);//"current",: {
-  //   "last_updated_epoch": 1668592800,
-  //   "last_updated": "2022-11-16 10:00",
-  //   "temp_c": 9.0,
-  //   "temp_f": 48.2,
-  //   "is_day": 1,
-  //   "condition": {
-  //       "text": "Sunny",
-  //       "icon": "//cdn.weatherapi.com/weather/64x64/day/113.png",
-  //       "code": 1000
-  //   });
+   const [weather, setWeather] = useState([]);
   const [position, setPosition] = useState("London");
+  const [loading,setLoading] = useState(true);
 const getLocation=()=> {
       navigator.geolocation.getCurrentPosition(showPosition);
   }
@@ -32,6 +22,7 @@ setPosition(`${latitude},${longitude}`);
     const res = await fetch(url);
     const data = await res.json();
     setWeather(data);
+    setLoading(false);
   };
  useEffect(() => {
    getWeather();
@@ -53,7 +44,7 @@ setPosition(`${latitude},${longitude}`);
   return (
     <div className="App">
       <Nav greeting={greetingTime}/>
-       <WeatherInfo text={weather.current.condition.text} img={weather.current.condition.icon}/>  
+       {!loading &&<WeatherInfo text={weather.current.condition.text} img={weather.current.condition.icon} temp={weather.current.temp_c}/>  }
     </div>
   );
 
