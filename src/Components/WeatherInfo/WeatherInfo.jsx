@@ -1,8 +1,11 @@
 import React from 'react'
-
-const WeatherInfo = () => {
+import './WeatherInfo.scss'
+const WeatherInfo = ({text,img}) => {
   return (
-    <div>WeatherInfo</div>
+    <div className='forecast'>
+      <p>{text}</p>
+      <img src={img} alt={text} /> 
+    </div>
   )
 }
 

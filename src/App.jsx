@@ -1,17 +1,23 @@
 import './App.scss';
-import {useState,useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import Nav from './Components/Nav/Nav';
 import WeatherInfo from './Components/WeatherInfo/WeatherInfo';
 
 function App() {
-  const [weather, setWeather] = useState([]);
+   const [weather, setWeather] = useState([]);//"current",: {
+  //   "last_updated_epoch": 1668592800,
+  //   "last_updated": "2022-11-16 10:00",
+  //   "temp_c": 9.0,
+  //   "temp_f": 48.2,
+  //   "is_day": 1,
+  //   "condition": {
+  //       "text": "Sunny",
+  //       "icon": "//cdn.weatherapi.com/weather/64x64/day/113.png",
+  //       "code": 1000
+  //   });
   const [position, setPosition] = useState("London");
 const getLocation=()=> {
-    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-     alert = "Geolocation is not supported by this browser.";
-    }
   }
 const showPosition =(position)=> {
   const {
@@ -29,8 +35,7 @@ setPosition(`${latitude},${longitude}`);
   };
  useEffect(() => {
    getWeather();
-   console.log(weather);
- }, [weather]);
+ },[]);
 
   const currentHour = new Date().getHours();
   let greetingTime = "Morning!";
@@ -43,12 +48,12 @@ setPosition(`${latitude},${longitude}`);
     greetingTime = "Evening!";
   }
       //<p>{weather.current.condition.text}</p>
+     // <p>{weather.current.condition.text}</p>
+      //<img src={weather.current.condition.icon} alt={weather.current.condition.text} />
   return (
     <div className="App">
       <Nav greeting={greetingTime}/>
-      <p>{weather.current.condition.text}</p>
-      <img src={weather.current.condition.icon} alt={weather.current.condition.text} />
-      {/* <WeatherInfo/> */}
+       <WeatherInfo text={weather.current.condition.text} img={weather.current.condition.icon}/>  
     </div>
   );
 

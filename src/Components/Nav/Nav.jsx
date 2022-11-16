@@ -1,8 +1,8 @@
 import React from 'react'
-
+import './Nav.scss'
 const Nav = ({greeting}) => {
   return (
-    <div><p>Good {greeting}</p></div>
+    <div className='greeting'><p className='greeting__scroll'>Good {greeting}</p></div>
   )
 }
 
